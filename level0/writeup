@@ -1,0 +1,5 @@
+scp level0,
+open in ghidra,
+find out about the sole conditional in the main,
+find out that it compares atoi(argv[1]) against 423,
+je execve /bin/sh

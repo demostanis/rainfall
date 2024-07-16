@@ -1,0 +1,9 @@
+"Code such as printf(foo); often indicates a bug, since foo may contain a
+% character.  If foo comes from untrusted user input, it may contain %n,
+causing  the  printf()  call  to write to memory and creating a security
+hole."
+
+the program spawns /bin/sh if m (a global variable) is equal to 64.
+we write &m in the buffer, along with some random formats for %n
+to write in the correct address (we need to skip 3 bytes in the stack).
+we also pad some %c with %nc for the total length (before %n) to be 64.

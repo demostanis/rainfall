@@ -1,0 +1,14 @@
+the program does 4 heap allocations, to allocate two structs:
+	struct internet {
+		int priority;
+		char *name;
+	};
+
+it copies using strcpy() (which performs no bounds checking)
+argv[1] to i1 and argv[1] to i2.
+
+using patterns (and dmesg instead of gdb (for some reason...)
+to find out where in our pattern the program segfaults),
+we figure out we need a padding of 20 bytes to be able to overwrite
+i2 with &puts (in the GOT). the second strcpy() overwrites puts with
+argv[2] (&m)

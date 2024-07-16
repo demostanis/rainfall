@@ -1,0 +1,11 @@
+we need to overwrite f->fp with &n, which `cat`s the flag.
+unlike with the stack, addresses of memory allocated on the heap
+always need to be a multiple of 8. so either we guess the right padding
+between the two addresses, or we can use a pattern with e.g. metasploit:
+
+  ./pattern_create -l 100
+  <use this as input in gdb>
+  ./pattern -q <address>
+
+metasploit tells us the program segfaults trying to execute what's in
+the pattern at index 72, so we pad our exploit with 72 'A's

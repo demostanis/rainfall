@@ -1,0 +1,8 @@
+unprotected printf again, but we can't overwrite the return address
+since the function calls exit()...
+
+so instead we overwrite the GOT!
+$ readelf -r level5 | grep exit
+08049838  00000607 R_386_JUMP_SLOT   00000000   exit
+
+we need to make exit() point to o() (which execs /bin/sh)

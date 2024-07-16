@@ -1,0 +1,7 @@
+stack contains buf (76 bytes) + gets ret address (4 bytes)
+
+we overwrite them with 'A's, suffixed with the address of
+a "call eax" instruction inside frame_dummy.
+since our buffer gets strdup'ed, its address ends up in eax,
+and thus our shellcode (at the beginning of the buffer) gets
+jumped to

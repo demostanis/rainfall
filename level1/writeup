@@ -1,0 +1,13 @@
+gets() reads a line from stdin into the buffer [...].
+**No check for buffer overrun is performed**
+
+the program gets() in a 76 bytes buffer (as can be seen
+in ghidra, by checking ./source, or by using metasploit
+pattern tools).
+we can fill this buffer with anything, followed by eip's value
+(next instruction's address, which we point to the run() function,
+which spawns /bin/sh)
+
+since our pipe closes when the file is done reading, /bin/sh's
+stdin is closed, so we can't type any command. thus we also read
+-, to keep stdin open
