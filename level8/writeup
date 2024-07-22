@@ -1,0 +1,17 @@
+if you open the program in ghidra, you'll find out
+it's pretty unreadable. that's becasue several calls to strcmp()
+are inlined.
+the programs reads the standard input for commands:
+ auth, reset, service and login
+
+the reset command always free(auth)s, even if auth has
+already been freed. this causes a double-free vulnerability:
+when a pointer is freed, its pointer is added to a list
+of free pointers. since it can be called twice, we can
+have the pointer appended twice. when malloc gets called,
+the previous auth's pointer will be returned. if we call
+malloc again, however, the same pointer will be returned!
+
+we use the service command to manipulate the auth structure,
+which we fill with 33 'a's (to fill name, and to make
+auth->auth true)
