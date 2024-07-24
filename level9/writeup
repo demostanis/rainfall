@@ -1,0 +1,9 @@
+instead of gdb we can use ltrace to find the address
+of where the program `memcpy`s to
+since the program tries to execute a method from a vtable,
+and that a vtable is an array of pointer to functions, it
+dereferences it twice (to execute the first element of the vtable)
+so we need to overwrite EIP with an address that points to
+an address to our shellcode.
+
+PS: don't try to find argv's address!!!!!!!!!!!!!!!!!!
